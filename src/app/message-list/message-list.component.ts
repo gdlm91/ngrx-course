@@ -1,23 +1,50 @@
-import {Component, OnInit, Input, ElementRef, ViewChild} from '@angular/core';
-import {MessageVM} from "../message-section/message.vm";
+import {
+  Component,
+  OnChanges,
+  Input,
+  ElementRef,
+  ViewChild,
+  SimpleChanges
+} from '@angular/core';
+import * as _ from 'lodash';
+import { MessageVM } from '../message-section/message.vm';
 
 @Component({
-    selector: 'message-list',
-    templateUrl: './message-list.component.html',
-    styleUrls: ['./message-list.component.css']
+  selector: 'message-list',
+  templateUrl: './message-list.component.html',
+  styleUrls: ['./message-list.component.css']
 })
-export class MessageListComponent  {
+export class MessageListComponent implements OnChanges {
 
-    @Input()
-    messages: MessageVM[];
+  @Input()
+  messages: MessageVM[];
+
+  @ViewChild('list')
+  list: ElementRef;
 
 
-    constructor() {
+  constructor() { }
 
+  ngOnChanges(changes: SimpleChanges) {
+    const messagesChange = changes['messages'];
+    if (messagesChange) {
+      const previousMessages = messagesChange.previousValue;
+      const newMessages = messagesChange.currentValue;
+
+      if (newMessages.length > previousMessages.length) {
+        setTimeout(() => {
+          this.scrollToLastMessage();
+        })
+      }
     }
+  }
 
-    ngOnInit() {
-
+  scrollToLastMessage() {
+    const items = this.list.nativeElement.querySelectorAll('li');
+    const lastItem = _.last(items) as any;
+    if (lastItem) {
+      lastItem.scrollIntoView();
     }
+  }
 
 }

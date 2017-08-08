@@ -1,10 +1,12 @@
 <div class="thread-section">
 
-    <div class="thread-count">
-        <span><h3>User: {{userName$ | async }}</h3></span>
-        <span>Unread messages: {{unreadMessagesCounter$ | async }}</span>
-    </div>
+  <div class="thread-count">
+    <span><h3>User: {{userName$ | async }}</h3></span>
+    <span>Unread messages: {{unreadMessagesCounter$ | async }}</span>
+  </div>
 
-    <thread-list [threads]="threadSummaries$ | async" (threadSelected)="onThreadSelected($event)" ></thread-list>
+  <thread-list [threads]="threadSummaries$ | async"
+               (threadSelected)="onThreadSelected($event)"
+               [currentThreadId]="currentThreadId$ | async"></thread-list>
 
 </div>

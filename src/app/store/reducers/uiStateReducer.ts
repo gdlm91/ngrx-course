@@ -1,26 +1,33 @@
+import { UiState, INITIAL_UI_STATE } from '../ui-state';
+import { Action } from '@ngrx/store';
+import { THREAD_SELECTED_ACTION, SELECT_USER_ACTION } from '../actions';
 
 
+export function uiState(state: UiState = INITIAL_UI_STATE, action: Action): UiState {
 
-import {UiState, INITIAL_UI_STATE} from "../ui-state";
-import {Action} from "@ngrx/store";
-import {THREAD_SELECTED_ACTION} from "../actions";
+  switch (action.type) {
 
+    case THREAD_SELECTED_ACTION:
+      return handleThreadSelectedAction(state, action);
 
-export function uiState(state: UiState = INITIAL_UI_STATE, action: Action) : UiState {
+    case SELECT_USER_ACTION:
+      return handleSelectUserAction(state, action);
 
-    switch (action.type)  {
+    default:
+      return state;
+  }
 
-        case THREAD_SELECTED_ACTION:
+}
 
-            const newState = Object.assign({}, state);
+function handleThreadSelectedAction(state: UiState, action: Action): UiState {
+  const newState = Object.assign({}, state);
+  newState.currentThreadId = action.payload;
+  return newState;
+}
 
-            newState.currentThreadId = action.payload;
-
-            return newState;
-
-
-        default:
-            return state;
-    }
-
+function handleSelectUserAction(state: UiState, action: Action): UiState {
+  const newState = Object.assign({}, state);
+  newState.userId = action.payload;
+  newState.currentThreadId = undefined;
+  return newState;
 }
