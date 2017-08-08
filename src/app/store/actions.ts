@@ -1,0 +1,26 @@
+import { Action } from '@ngrx/store';
+import { AllUserData } from '../../../shared/to/all-user-data';
+
+export const LOAD_USER_THREADS_ACTION = 'LOAD_USER_THREADS_ACTION';
+export const USER_THREADS_LOADED_ACTION = 'USER_THREADS_LOADED_ACTION';
+export const THREAD_SELECTED_ACTION = 'THREAD_SELECTED_ACTION';
+
+export class LoadUserThreadsAction implements Action {
+  readonly type: string = LOAD_USER_THREADS_ACTION;
+}
+
+export class UserThreadsLoadedAction implements Action {
+  readonly type: string = USER_THREADS_LOADED_ACTION;
+
+  constructor(
+    public payload?: AllUserData
+  ) { }
+}
+
+export class ThreadSelectedAtion implements Action {
+  readonly type: string = THREAD_SELECTED_ACTION;
+
+  constructor(
+    public payload?: number
+  ) { }
+}

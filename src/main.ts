@@ -6,6 +6,8 @@ import { environment } from './environments/environment';
 import { AppModule } from './app/';
 
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/skip';
+import 'rxjs/add/operator/switchMap';
 
 if (environment.production) {
   enableProdMode();
